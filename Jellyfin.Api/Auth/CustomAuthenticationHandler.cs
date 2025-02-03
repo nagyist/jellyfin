@@ -27,13 +27,12 @@ namespace Jellyfin.Api.Auth
         /// <param name="options">Options monitor.</param>
         /// <param name="logger">The logger.</param>
         /// <param name="encoder">The url encoder.</param>
-        /// <param name="clock">The system clock.</param>
         public CustomAuthenticationHandler(
             IAuthService authService,
             IOptionsMonitor<AuthenticationSchemeOptions> options,
             ILoggerFactory logger,
-            UrlEncoder encoder,
-            ISystemClock clock) : base(options, logger, encoder, clock)
+            UrlEncoder encoder)
+            : base(options, logger, encoder)
         {
             _authService = authService;
             _logger = logger.CreateLogger<CustomAuthenticationHandler>();
@@ -58,7 +57,7 @@ namespace Jellyfin.Api.Auth
 
                 var claims = new[]
                 {
-                    new Claim(ClaimTypes.Name, authorizationInfo.User?.Username ?? string.Empty),
+                    new Claim(ClaimTypes.Name, authorizationInfo.User.Username),
                     new Claim(ClaimTypes.Role, role),
                     new Claim(InternalClaimTypes.UserId, authorizationInfo.UserId.ToString("N", CultureInfo.InvariantCulture)),
                     new Claim(InternalClaimTypes.DeviceId, authorizationInfo.DeviceId),

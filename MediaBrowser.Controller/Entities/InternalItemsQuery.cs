@@ -36,8 +36,7 @@ namespace MediaBrowser.Controller.Entities
             ImageTypes = Array.Empty<ImageType>();
             IncludeItemTypes = Array.Empty<BaseItemKind>();
             ItemIds = Array.Empty<Guid>();
-            MediaTypes = Array.Empty<string>();
-            MinSimilarityScore = 20;
+            MediaTypes = Array.Empty<MediaType>();
             OfficialRatings = Array.Empty<string>();
             OrderBy = Array.Empty<(ItemSortBy, SortOrder)>();
             PersonIds = Array.Empty<Guid>();
@@ -51,6 +50,7 @@ namespace MediaBrowser.Controller.Entities
             TrailerTypes = Array.Empty<TrailerType>();
             VideoTypes = Array.Empty<VideoType>();
             Years = Array.Empty<int>();
+            SkipDeserialization = false;
         }
 
         public InternalItemsQuery(User? user)
@@ -70,8 +70,6 @@ namespace MediaBrowser.Controller.Entities
 
         public User? User { get; set; }
 
-        public BaseItem? SimilarTo { get; set; }
-
         public bool? IsFolder { get; set; }
 
         public bool? IsFavorite { get; set; }
@@ -86,7 +84,7 @@ namespace MediaBrowser.Controller.Entities
 
         public bool? IncludeItemsByName { get; set; }
 
-        public string[] MediaTypes { get; set; }
+        public MediaType[] MediaTypes { get; set; }
 
         public BaseItemKind[] IncludeItemTypes { get; set; }
 
@@ -294,8 +292,6 @@ namespace MediaBrowser.Controller.Entities
 
         public DtoOptions DtoOptions { get; set; }
 
-        public int MinSimilarityScore { get; set; }
-
         public string? HasNoAudioTrackWithLanguage { get; set; }
 
         public string? HasNoInternalSubtitleTrackWithLanguage { get; set; }
@@ -357,6 +353,8 @@ namespace MediaBrowser.Controller.Entities
         public string? SearchTerm { get; set; }
 
         public string? SeriesTimerId { get; set; }
+
+        public bool SkipDeserialization { get; set; }
 
         public void SetUser(User user)
         {

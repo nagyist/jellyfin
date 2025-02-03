@@ -3,7 +3,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Jellyfin.Api.Constants;
 using Jellyfin.Api.Models.StartupDtos;
-using Jellyfin.Networking.Configuration;
+using MediaBrowser.Common.Api;
+using MediaBrowser.Common.Net;
 using MediaBrowser.Controller.Configuration;
 using MediaBrowser.Controller.Library;
 using Microsoft.AspNetCore.Authorization;
@@ -92,7 +93,6 @@ public class StartupController : BaseJellyfinApiController
     {
         NetworkConfiguration settings = _config.GetNetworkConfiguration();
         settings.EnableRemoteAccess = startupRemoteAccessDto.EnableRemoteAccess;
-        settings.EnableUPnP = startupRemoteAccessDto.EnableAutomaticPortMapping;
         _config.SaveConfiguration(NetworkConfigurationStore.StoreKey, settings);
         return NoContent();
     }
